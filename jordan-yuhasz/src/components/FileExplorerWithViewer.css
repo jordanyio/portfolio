@@ -1,0 +1,46 @@
+.file-explorer-with-viewer {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .file-explorer {
+    width: 30%;
+    border: 2px solid;
+    border-radius: 8px;
+    padding: 10px;
+  }
+  
+  .folder {
+    margin-left: 10px;
+  }
+  
+  .folder-name {
+    cursor: pointer;
+    font-weight: bold;
+    margin: 5px 0;
+  }
+  
+  .file {
+    margin-left: 20px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+  }
+  
+  .file:hover {
+    background-color: rgba(0, 0, 0, 0.05); /* Theme dynamic background hover effects can be added */
+  }
+  
+  .file.selected {
+    font-weight: bold;
+  }
+  
+  .pdf-viewer {
+    width: 70%;
+    border: 2px solid;
+    border-radius: 8px;
+    padding: 10px;
+  }
+  

@@ -1,0 +1,20 @@
+/* AboutMe.css */
+.window-frame {
+    transition: transform 0.3s ease;
+  }
+  
+  .window-frame:hover {
+    transform: translateY(-5px);
+  }
+  
+  .decor-square {
+    transition: transform 0.5s ease;
+  }
+  
+  .window-frame:hover .decor-square-1 {
+    transform: rotate(20deg) translate(10px, -10px);
+  }
+  
+  .window-frame:hover .decor-square-2 {
+    transform: rotate(-15deg) translate(-10px, 10px);
+  }

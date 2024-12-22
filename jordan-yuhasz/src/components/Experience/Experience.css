@@ -1,0 +1,65 @@
+/* Experience.css */
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .experience-card:hover .card-content {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  }
+  
+  /* Timeline dot pulse animation */
+  .timeline-dot::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 50%;
+    background: inherit;
+    opacity: 0.4;
+    animation: pulse 2s infinite;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.4;
+    }
+    50% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0;
+    }
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .timeline-bar {
+      left: 2rem !important;
+    }
+    
+    .timeline-dot {
+      left: 2rem !important;
+    }
+    
+    .experience-card {
+      padding-left: 4rem;
+    }
+    
+    .card-content {
+      max-width: 100% !important;
+      margin-left: 0 !important;
+    }
+  }

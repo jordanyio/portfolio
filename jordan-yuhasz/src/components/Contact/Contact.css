@@ -1,0 +1,59 @@
+/* Contact.css */
+.contact-method {
+    transform: translateY(0);
+    transition: transform 0.2s ease;
+  }
+  
+  .contact-method:hover {
+    transform: translateY(-2px);
+  }
+  
+  .social-link {
+    transform: scale(1);
+    transition: transform 0.2s ease;
+  }
+  
+  .social-link:hover {
+    transform: scale(1.1);
+  }
+  
+  .submit-button:hover {
+    opacity: 0.9;
+  }
+  
+  /* Form input focus effects */
+  input:focus, textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(var(--accent-rgb), 0.2);
+  }
+  
+  /* Success message animation */
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .success-message {
+    animation: slideIn 0.3s ease forwards;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .content {
+      grid-template-columns: 1fr;
+    }
+    
+    .contact-info {
+      order: 2;
+    }
+    
+    .form {
+      order: 1;
+    }
+  }
