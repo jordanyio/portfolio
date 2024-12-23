@@ -1,120 +1,55 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { personalInfo } from '../../data/data';
+import { getStyles } from './styles';
+import './AboutMe.css';
 
 const AboutMe = ({ theme }) => {
-  const styles = {
-    container: {
-      display: 'flex',
-      gap: '4rem',
-      alignItems: 'center',
-      maxWidth: '1200px',
-      margin: '0 auto',
-      padding: '2rem'
-    },
-    content: {
-      flex: '1',
-      position: 'relative',
-      zIndex: 1
-    },
-    title: {
-      fontSize: '2.5rem',
-      fontWeight: 'bold',
-      marginBottom: '1.5rem',
-      color: theme.text
-    },
-    description: {
-      fontSize: '1.1rem',
-      lineHeight: '1.8',
-      color: theme.text,
-      opacity: 0.9
-    },
-    highlight: {
-      color: theme.accent
-    },
-    imageContainer: {
-      flex: '1',
-      position: 'relative',
-      minHeight: '600px',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-    windowFrame: {
-      position: 'relative',
-      width: '100%',
-      height: '100%',
-      padding: '20px',
-      borderRadius: '12px',
-      backgroundColor: theme.card,
-      boxShadow: `0 20px 40px ${theme.accent}22`,
-      overflow: 'hidden'
-    },
-    windowInner: {
-      position: 'relative',
-      width: '100%',
-      height: '100%',
-      border: `2px solid ${theme.accent}33`,
-      borderRadius: '8px',
-      overflow: 'hidden'
-    },
-    decorSquare1: {
-      position: 'absolute',
-      top: '-50px',
-      right: '-50px',
-      width: '200px',
-      height: '200px',
-      backgroundColor: `${theme.accent}11`,
-      transform: 'rotate(15deg)',
-      borderRadius: '20px'
-    },
-    decorSquare2: {
-      position: 'absolute',
-      bottom: '-30px',
-      left: '-30px',
-      width: '150px',
-      height: '150px',
-      backgroundColor: `${theme.accent}08`,
-      transform: 'rotate(-10deg)',
-      borderRadius: '15px'
-    },
-    imageWrapper: {
-      position: 'relative',
-      width: '100%',
-      height: '100%',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      zIndex: 2
-    },
-    image: {
-      width: '100%',
-      height: '100%',
-      objectFit: 'cover',
-      borderRadius: '6px'
-    }
-  };
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const styles = getStyles(theme, isMobile);
 
   return (
     <div style={styles.container}>
-      <div style={styles.content}>
+      <header style={styles.header}>
         <h2 style={styles.title}>About <span style={styles.highlight}>Me</span></h2>
-        <p style={styles.description}>
-          {personalInfo.about}
-        </p>
-      </div>
+      </header>
       
-      <div style={styles.imageContainer}>
-        <div style={styles.windowFrame}>
-          <div style={styles.decorSquare1} />
-          <div style={styles.decorSquare2} />
-          <div style={styles.windowInner}>
-            <div style={styles.imageWrapper}>
-              <img
-                src='/JordanYuhasz-removebg-preview.png'
-                alt="Profile"
-                style={styles.image}
-              />
-            </div>
+      <div style={styles.content}>
+        <div style={styles.textSection}>
+          <p style={styles.paragraph}>
+            {personalInfo.about}
+          </p>
+          <p style={styles.paragraph}>
+            Beyond my professional work in software engineering, I have a strong background in athletics. 
+            I played ice hockey as a goalie, which taught me valuable lessons about focus, quick decision-making, 
+            and performing under pressure. I also represented my school on the golf team, where I developed 
+            discipline, precision, and strategic thinking - skills that translate well into my technical work.
+          </p>
+          <img
+            src='/jordanhockey.jpg'
+            alt="Jordan Yuhasz"
+            style={styles.sideImage}
+          />
+        </div>
+        
+        <div style={styles.imageContainer} className="window-frame">
+          <div style={styles.decorSquare1} className="decor-square decor-square-1" />
+          <div style={styles.decorSquare2} className="decor-square decor-square-2" />
+          <div style={styles.imageWrapper}>
+            <img
+              src='/JordanYuhasz-removebg-preview.png'
+              alt="Profile"
+              style={styles.image}
+            />
           </div>
         </div>
       </div>

@@ -40,54 +40,7 @@ export const personalInfo = {
     { name: "SQL", level: "Intermediate" }
   ];
   
-  export const projects = [
-    {
-      title: "EchoSearch AI",
-      description: "Echo is a tool aimed at podcast producers. It listens to the pod while recording, and assists the producer with running searchs in real time.",
-      technologies: ["React", "Dotnet", "NLP", "Groq"],
-      liveUrl: "https://example.com",
-      githubUrl: "https://github.com/yourusername/project"
-    },
-    {
-      title: "Buisness Card Page",
-      description: "This is a basic page that describes a companies mission and a brief introduction to the team that you might expect to be working with.",
-      technologies: ["React", "Firebase"],
-      liveUrl: "https://ai-system-engineering-corp.web.app/",
-      githubUrl: "https://github.com/yourusername/project"
-    },
-    {
-        featured: true,
-        title: "ChatUWM AI Assistant",
-        description: "ChatUWM is an advanced AI assistant that provides mortgage professionals with instant access to complex industry information. The system leverages RAG (Retrieval-Augmented Generation) to search through thousands of mortgage documents in real-time, providing accurate, context-aware responses without exposing sensitive data to external AI services.",
-        technologies: ["Semantic Kernel", "Dotnet", "React", "Azure", "OpenAI", "Vector DB"],
-        videoUrl: "https://www.youtube.com/watch?v=cBS7KIe5TX0",
-        videoStartTime: 164,
-        videoEndTime: 416
-    },
-    {
-        title: "Accutax Form Page",
-        description: "Another basic company form page. This was meant to be a quick fill a form landing site when a customer searched for or found this business on google.",
-        technologies: ["React", "Dotnet", "NLP"],
-        liveUrl: "https://accutax-sfield.web.app/",
-        githubUrl: "https://github.com/yourusername/project"
-    },
-    {
-        title: "CaseCare AI",
-        description: "A management tool for case managers, social workers, and therapists. This app streamlines case management processes by integrating with ai.",
-        technologies: ["React", "Firebase", "Material-UI"],
-        liveUrl: "https://example.com",
-        githubUrl: "https://github.com/yourusername/project"
-    },
-    {
-        featured: true,
-        title: "ChatUWM AI Assistant",
-        description: "ChatUWM is an advanced AI assistant that provides mortgage professionals with instant access to complex industry information. The system leverages RAG (Retrieval-Augmented Generation) to search through thousands of mortgage documents in real-time, providing accurate, context-aware responses without exposing sensitive data to external AI services.",
-        technologies: ["Semantic Kernel", "Dotnet", "React", "Azure", "OpenAI", "Vector DB"],
-        videoUrl: "https://www.youtube.com/watch?v=cBS7KIe5TX0",
-        videoStartTime: 164,
-        videoEndTime: 416
-    }
-  ];
+  
   
   export const themes = {
     blue: {

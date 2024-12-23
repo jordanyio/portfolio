@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar, Building2, ChevronRight } from 'lucide-react';
 
 const Experience = ({ theme }) => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const experiences = [
     {
       title: "Software Engineer",
@@ -21,7 +32,7 @@ const Experience = ({ theme }) => {
       title: "Research Development Software Engineer",
       company: "Avant-Garde Capital",
       period: "August 2021 - July 2023",
-      description: "In my postition at AG Cap, I spent time automating data collection and trading engines for a firm that was focused on a variety of arbitrage trading strategies in the stock market. I spent lots of time doing data anaylsis, training machine learning models, and building decision making systems.",
+      description: "In my postition at AG Cap, I spent time automating data collection and building trading engines for a firm that was focused on a variety of arbitrage trading strategies in the stock market. I spent lots of time doing data anaylsis, training machine learning models, and building decision making systems.",
       tags: ["Machine Learning", "Data Analysis", "Trading Systems", "Automation"]
     }
   ];
@@ -30,42 +41,43 @@ const Experience = ({ theme }) => {
     container: {
       maxWidth: '1200px',
       margin: '0 auto',
-      padding: '2rem'
+      padding: isMobile ? '1rem' : '2rem'
     },
     header: {
       textAlign: 'center',
-      marginBottom: '4rem'
+      marginBottom: isMobile ? '2rem' : '4rem'
     },
     title: {
-      fontSize: '2.5rem',
+      fontSize: isMobile ? '2rem' : '2.5rem',
       fontWeight: 'bold',
       color: theme.text,
       marginBottom: '1rem'
     },
     timeline: {
       position: 'relative',
-      maxWidth: '800px',
+      maxWidth: isMobile ? '100%' : '800px',
       margin: '0 auto'
     },
     timelineBar: {
       position: 'absolute',
-      left: '50%',
+      left: isMobile ? '20px' : '50%',
       width: '2px',
       height: '100%',
       backgroundColor: `${theme.accent}33`,
-      transform: 'translateX(-50%)'
+      transform: isMobile ? 'none' : 'translateX(-50%)'
     },
     experienceCard: {
       position: 'relative',
       width: '100%',
-      marginBottom: '3rem',
+      marginBottom: isMobile ? '2rem' : '3rem',
+      paddingLeft: isMobile ? '40px' : 0,
       opacity: 0,
       animation: 'fadeIn 0.5s ease forwards'
     },
     cardContent: {
       backgroundColor: theme.card,
-      borderRadius: '12px',
-      padding: '2rem',
+      borderRadius: isMobile ? '10px' : '12px',
+      padding: isMobile ? '1.5rem' : '2rem',
       boxShadow: `0 4px 20px ${theme.accent}11`,
       border: `1px solid ${theme.accent}22`,
       position: 'relative',
@@ -84,24 +96,25 @@ const Experience = ({ theme }) => {
       gap: '0.5rem',
       color: theme.text,
       opacity: 0.7,
-      fontSize: '0.9rem',
+      fontSize: isMobile ? '0.85rem' : '0.9rem',
       marginBottom: '1rem'
     },
     jobTitle: {
-      fontSize: '1.5rem',
+      fontSize: isMobile ? '1.25rem' : '1.5rem',
       fontWeight: 'bold',
       color: theme.text,
       marginBottom: '0.5rem'
     },
     company: {
       color: theme.accent,
-      fontSize: '1.1rem',
+      fontSize: isMobile ? '1rem' : '1.1rem',
       fontWeight: '500'
     },
     description: {
       color: theme.text,
       lineHeight: 1.6,
-      marginBottom: '1.5rem'
+      marginBottom: '1.5rem',
+      fontSize: isMobile ? '0.95rem' : '1rem'
     },
     tagsContainer: {
       display: 'flex',
@@ -113,17 +126,17 @@ const Experience = ({ theme }) => {
       color: theme.accent,
       padding: '0.25rem 0.75rem',
       borderRadius: '999px',
-      fontSize: '0.85rem'
+      fontSize: isMobile ? '0.8rem' : '0.85rem'
     },
     timelineDot: {
       position: 'absolute',
-      left: '50%',
-      top: '2rem',
-      width: '1rem',
-      height: '1rem',
+      left: isMobile ? '16px' : '50%',
+      top: isMobile ? '1.5rem' : '2rem',
+      width: isMobile ? '0.75rem' : '1rem',
+      height: isMobile ? '0.75rem' : '1rem',
       backgroundColor: theme.accent,
       borderRadius: '50%',
-      transform: 'translateX(-50%)',
+      transform: isMobile ? 'none' : 'translateX(-50%)',
       zIndex: 2
     }
   };
@@ -149,14 +162,14 @@ const Experience = ({ theme }) => {
             <div style={styles.timelineDot} />
             <div style={styles.cardContent}>
               <div style={styles.companyInfo}>
-                <Building2 size={20} color={theme.accent} />
+                <Building2 size={isMobile ? 18 : 20} color={theme.accent} />
                 <span style={styles.company}>{exp.company}</span>
               </div>
               
               <h3 style={styles.jobTitle}>{exp.title}</h3>
               
               <div style={styles.periodInfo}>
-                <Calendar size={16} />
+                <Calendar size={isMobile ? 14 : 16} />
                 <span>{exp.period}</span>
               </div>
 

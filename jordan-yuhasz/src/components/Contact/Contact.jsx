@@ -1,22 +1,172 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Mail, Phone, Send, Linkedin, Github } from 'lucide-react';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../../firebase/config';
+import { getStyles } from './styles';
+import './Contact.css';
 
 const Contact = ({ theme }) => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    subject: '',
+    phone: '', 
     message: ''
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+
+    window.addEventListener('resize', handleResize);
+    const ContactInfo = () => (
+    <div style={styles.contactInfo}>
+      <h3 style={styles.contactTitle}>Contact Information</h3>
+      
+      <a href="mailto:JordanYuhaszDev@gmail.com" style={styles.contactMethod} className="contact-method">
+        <span style={styles.contactIcon}>
+          <Mail size={isMobile ? 18 : 20} color="white" />
+        </span>
+        <span>JordanYuhaszDev@gmail.com</span>
+      </a>
+
+      <a href="tel:+12483182279" style={styles.contactMethod} className="contact-method">
+        <span style={styles.contactIcon}>
+          <Phone size={isMobile ? 18 : 20} color="white" />
+        </span>
+        <span>+1 (248) 318-2279</span>
+      </a>
+
+      <div style={styles.socialLinks}>
+        <a 
+          href="https://linkedin.com/in/jordan-yuhasz" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          style={styles.socialLink}
+          className="social-link"
+        >
+          <Linkedin size={isMobile ? 20 : 24} />
+        </a>
+        <p style={{ fontSize: isMobile ? '0.9rem' : '1rem' }}>
+          Connect with me on LinkedIn
+        </p>
+      </div>
+    </div>
+  );
+
+  const ContactForm = () => (
+    <form style={styles.form} onSubmit={handleSubmit}>
+      <h3 style={styles.contactTitle}>Send a Message</h3>
+      
+      <div style={styles.formGroup}>
+        <label style={styles.label}>Name</label>
+        <input
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          style={styles.input}
+          required
+        />
+      </div>
+
+      <div style={styles.formGroup}>
+        <label style={styles.label}>Phone</label>
+        <input
+          type="tel"
+          name="phone"
+          value={formData.phone}
+          onChange={handleChange}
+          style={styles.input}
+          required
+        />
+      </div>
+
+      <div style={styles.formGroup}>
+        <label style={styles.label}>Email</label>
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          style={styles.input}
+          required
+        />
+      </div>
+
+      <div style={styles.formGroup}>
+        <label style={styles.label}>Message</label>
+        <textarea
+          name="message"
+          value={formData.message}
+          onChange={handleChange}
+          style={styles.textarea}
+          required
+        />
+      </div>
+
+      <button 
+        type="submit" 
+        style={{
+          ...styles.submitButton,
+          opacity: isSubmitting ? 0.7 : 1,
+          cursor: isSubmitting ? 'not-allowed' : 'pointer'
+        }} 
+        disabled={isSubmitting}
+        className="submit-button"
+      >
+        <Send size={isMobile ? 18 : 20} />
+        {isSubmitting ? 'Sending...' : 'Send Message'}
+      </button>
+
+      {error && (
+        <div style={styles.error} className="error-message">
+          {error}
+        </div>
+      )}
+
+      {isSubmitted && (
+        <div style={styles.success} className="success-message">
+          Message sent successfully! I'll get back to you soon.
+        </div>
+      )}
+    </form>
+  );
+
+  return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here you would typically handle the form submission
-    // For now, we'll just show a success message
-    setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 3000);
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      await addDoc(collection(db, 'contact_messages'), {
+        ...formData,
+        timestamp: serverTimestamp()
+      });
+
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        message: ''
+      });
+
+      setIsSubmitted(true);
+      setTimeout(() => setIsSubmitted(false), 3000);
+    } catch (err) {
+      console.error('Error submitting form:', err);
+      setError('Failed to submit message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -26,139 +176,7 @@ const Contact = ({ theme }) => {
     });
   };
 
-  const styles = {
-    container: {
-      maxWidth: '1200px',
-      margin: '0 auto',
-      padding: '2rem'
-    },
-    header: {
-      textAlign: 'center',
-      marginBottom: '4rem'
-    },
-    title: {
-      fontSize: '2.5rem',
-      fontWeight: 'bold',
-      color: theme.text,
-      marginBottom: '1rem'
-    },
-    subtitle: {
-      color: theme.text,
-      opacity: 0.8,
-      maxWidth: '600px',
-      margin: '0 auto',
-      lineHeight: 1.6
-    },
-    content: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-      gap: '3rem',
-      alignItems: 'start'
-    },
-    contactInfo: {
-      backgroundColor: theme.card,
-      padding: '2rem',
-      borderRadius: '12px',
-      border: `1px solid ${theme.accent}22`
-    },
-    contactTitle: {
-      fontSize: '1.5rem',
-      fontWeight: 'bold',
-      marginBottom: '1.5rem',
-      color: theme.text
-    },
-    contactMethod: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '1rem',
-      padding: '1rem',
-      marginBottom: '1rem',
-      backgroundColor: `${theme.accent}11`,
-      borderRadius: '8px',
-      color: theme.text,
-      textDecoration: 'none',
-      transition: 'transform 0.2s ease'
-    },
-    contactIcon: {
-      backgroundColor: theme.accent,
-      padding: '0.5rem',
-      borderRadius: '8px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
-    },
-    form: {
-      backgroundColor: theme.card,
-      padding: '2rem',
-      borderRadius: '12px',
-      border: `1px solid ${theme.accent}22`
-    },
-    formGroup: {
-      marginBottom: '1.5rem'
-    },
-    label: {
-      display: 'block',
-      marginBottom: '0.5rem',
-      color: theme.text,
-      fontSize: '0.9rem'
-    },
-    input: {
-      width: '100%',
-      padding: '0.75rem',
-      borderRadius: '6px',
-      border: `1px solid ${theme.accent}33`,
-      backgroundColor: theme.background,
-      color: theme.text,
-      fontSize: '1rem'
-    },
-    textarea: {
-      width: '100%',
-      padding: '0.75rem',
-      borderRadius: '6px',
-      border: `1px solid ${theme.accent}33`,
-      backgroundColor: theme.background,
-      color: theme.text,
-      fontSize: '1rem',
-      minHeight: '150px',
-      resize: 'vertical'
-    },
-    submitButton: {
-      backgroundColor: theme.accent,
-      color: 'white',
-      padding: '0.75rem 1.5rem',
-      borderRadius: '6px',
-      border: 'none',
-      fontSize: '1rem',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '0.5rem',
-      transition: 'opacity 0.2s ease'
-    },
-    success: {
-      backgroundColor: '#4CAF50',
-      color: 'white',
-      padding: '1rem',
-      borderRadius: '6px',
-      marginTop: '1rem',
-      textAlign: 'center'
-    },
-    socialLinks: {
-      display: 'flex',
-      gap: '1rem',
-      marginTop: '1.5rem'
-    },
-    socialLink: {
-      padding: '0.75rem',
-      borderRadius: '8px',
-      backgroundColor: `${theme.accent}11`,
-      color: theme.text,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      transition: 'transform 0.2s ease'
-    }
-  };
+  const styles = getStyles(theme, isMobile);
 
   return (
     <div style={styles.container}>
@@ -174,39 +192,33 @@ const Contact = ({ theme }) => {
         <div style={styles.contactInfo}>
           <h3 style={styles.contactTitle}>Contact Information</h3>
           
-          <a href="mailto:your.email@example.com" style={styles.contactMethod} className="contact-method">
+          <a href="mailto:JordanYuhaszDev@gmail.com" style={styles.contactMethod} className="contact-method">
             <span style={styles.contactIcon}>
-              <Mail size={20} color="white" />
+              <Mail size={isMobile ? 18 : 20} color="white" />
             </span>
-            <span>your.email@example.com</span>
+            <span>JordanYuhaszDev@gmail.com</span>
           </a>
 
-          <a href="tel:+1234567890" style={styles.contactMethod} className="contact-method">
+          <a href="tel:+12483182279" style={styles.contactMethod} className="contact-method">
             <span style={styles.contactIcon}>
-              <Phone size={20} color="white" />
+              <Phone size={isMobile ? 18 : 20} color="white" />
             </span>
-            <span>+1 (234) 567-890</span>
+            <span>+1 (248) 318-2279</span>
           </a>
 
           <div style={styles.socialLinks}>
             <a 
-              href="https://linkedin.com/in/yourusername" 
+              href="https://linkedin.com/in/jordan-yuhasz" 
               target="_blank" 
               rel="noopener noreferrer"
               style={styles.socialLink}
               className="social-link"
             >
-              <Linkedin size={24} />
+              <Linkedin size={isMobile ? 20 : 24} />
             </a>
-            <a 
-              href="https://github.com/yourusername" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              style={styles.socialLink}
-              className="social-link"
-            >
-              <Github size={24} />
-            </a>
+            <p style={{ fontSize: isMobile ? '0.9rem' : '1rem' }}>
+              Connect with me on LinkedIn
+            </p>
           </div>
         </div>
 
@@ -226,11 +238,11 @@ const Contact = ({ theme }) => {
           </div>
 
           <div style={styles.formGroup}>
-            <label style={styles.label}>Email</label>
+            <label style={styles.label}>Phone</label>
             <input
-              type="email"
-              name="email"
-              value={formData.email}
+              type="tel"
+              name="phone"
+              value={formData.phone}
               onChange={handleChange}
               style={styles.input}
               required
@@ -238,11 +250,11 @@ const Contact = ({ theme }) => {
           </div>
 
           <div style={styles.formGroup}>
-            <label style={styles.label}>Subject</label>
+            <label style={styles.label}>Email</label>
             <input
-              type="text"
-              name="subject"
-              value={formData.subject}
+              type="email"
+              name="email"
+              value={formData.email}
               onChange={handleChange}
               style={styles.input}
               required
@@ -260,13 +272,28 @@ const Contact = ({ theme }) => {
             />
           </div>
 
-          <button type="submit" style={styles.submitButton} className="submit-button">
-            <Send size={20} />
-            Send Message
+          <button 
+            type="submit" 
+            style={{
+              ...styles.submitButton,
+              opacity: isSubmitting ? 0.7 : 1,
+              cursor: isSubmitting ? 'not-allowed' : 'pointer'
+            }} 
+            disabled={isSubmitting}
+            className="submit-button"
+          >
+            <Send size={isMobile ? 18 : 20} />
+            {isSubmitting ? 'Sending...' : 'Send Message'}
           </button>
 
+          {error && (
+            <div style={styles.error} className="error-message">
+              {error}
+            </div>
+          )}
+
           {isSubmitted && (
-            <div style={styles.success}>
+            <div style={styles.success} className="success-message">
               Message sent successfully! I'll get back to you soon.
             </div>
           )}
