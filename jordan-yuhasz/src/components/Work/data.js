@@ -1,9 +1,10 @@
 export const projects = [
+  
   {
-    title: "Finys",
-    description: "Property/casualty insurance processing is all we do. And the Finys Suite does it all. At Finys, my work includes the Suite, and other internal tools.",
-    technologies: ["Kendo", "Dotnet"],
-    liveUrl: "https://finys.com/",
+    title: "PodSearch AI",
+    description: "PodSearch is a tool aimed at podcast producers. It listens to the pod while recording, and assists the producer with running searchs in real time.",
+    technologies: ["React", "Dotnet", "AI", "Groq"],
+    liveUrl: "https://podsearch-ai.web.app/",
     githubUrl: "https://github.com/yourusername/project"
   },
   {
@@ -14,12 +15,13 @@ export const projects = [
     githubUrl: "https://github.com/yourusername/project"
   },
   {
-    title: "Accutax Form Page",
-    description: "Another basic company form page. This was meant to be a quick fill a form landing site when a customer searched for or found this business on google.",
-    technologies: ["React", "Firestore", "Firebase"],
-    liveUrl: "https://accutax-sfield.web.app/",
+    title: "Finys",
+    description: "Property/casualty insurance processing is all we do. And the Finys Suite does it all. At Finys, my work includes the Suite, and other internal tools.",
+    technologies: ["Kendo", "Dotnet"],
+    liveUrl: "https://finys.com/",
     githubUrl: "https://github.com/yourusername/project"
   },
+  
   {
       featured: true,
       title: "ChatUWM AI Assistant",
@@ -48,10 +50,11 @@ export const projects = [
     githubUrl: "https://github.com/yourusername/ml-analysis"
   },
   {
-    title: "EchoSearch AI",
-    description: "Echo is a tool aimed at podcast producers. It listens to the pod while recording, and assists the producer with running searchs in real time.",
-    technologies: ["React", "Dotnet", "AI", "Groq"],
-    liveUrl: "https://example.com",
+    title: "Accutax Form Page",
+    description: "Another basic company form page. This was meant to be a quick fill a form landing site when a customer searched for or found this business on google.",
+    technologies: ["React", "Firestore", "Firebase"],
+    liveUrl: "https://accutax-sfield.web.app/",
     githubUrl: "https://github.com/yourusername/project"
   },
+  
 ];
