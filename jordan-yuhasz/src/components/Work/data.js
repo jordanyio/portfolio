@@ -1,27 +1,25 @@
 export const projects = [
-  
+  {
+    title: "Dr Mold Website & SEO",
+    description: "This is a page built for a small business who does mold remidiatio and similar services. They were looking to get a better website and have a leg up against their competitors with SEO.",
+    technologies: ["React", "Firestore", "Firebase", "Google API", "Dotnet"],
+    liveUrl: "https://dr-mold-demo.web.app/",
+    githubUrl: "https://github.com/yourusername/project"
+  },
   {
     title: "PodSearch AI",
     description: "PodSearch is a tool aimed at podcast producers. It listens to the pod while recording, and assists the producer with running searchs in real time.",
-    technologies: ["React", "Dotnet", "AI", "Groq"],
+    technologies: ["React", "Dotnet", "AI", "Groq", "Semantic Kernel", "Azure Storage"],
     liveUrl: "https://podsearch-ai.web.app/",
     githubUrl: "https://github.com/yourusername/project"
   },
   {
     title: "Buisness Card Page",
     description: "This is a basic page that describes a companies mission and a brief introduction to the team that you might expect to be working with.",
-    technologies: ["React", "Firestore", "Firebase"],
+    technologies: ["React", "Firestore", "Firebase", "Google API"],
     liveUrl: "https://ai-system-engineering-corp.web.app/",
     githubUrl: "https://github.com/yourusername/project"
   },
-  {
-    title: "Finys",
-    description: "Property/casualty insurance processing is all we do. And the Finys Suite does it all. At Finys, my work includes the Suite, and other internal tools.",
-    technologies: ["Kendo", "Dotnet"],
-    liveUrl: "https://finys.com/",
-    githubUrl: "https://github.com/yourusername/project"
-  },
-  
   {
       featured: true,
       title: "ChatUWM AI Assistant",
@@ -54,6 +52,13 @@ export const projects = [
     description: "Another basic company form page. This was meant to be a quick fill a form landing site when a customer searched for or found this business on google.",
     technologies: ["React", "Firestore", "Firebase"],
     liveUrl: "https://accutax-sfield.web.app/",
+    githubUrl: "https://github.com/yourusername/project"
+  },
+  {
+    title: "Finys",
+    description: "Property/casualty insurance processing is all we do. And the Finys Suite does it all. At Finys, my work includes the Suite, and other internal tools.",
+    technologies: ["Kendo", "Dotnet"],
+    liveUrl: "https://finys.com/",
     githubUrl: "https://github.com/yourusername/project"
   },
   
